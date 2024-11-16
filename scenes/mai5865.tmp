@@ -119,11 +119,8 @@ layer_0/tile_data = PackedInt32Array(-4, 0, 0, -65533, 131072, 0, -3, 65536, 0, 
 
 [node name="Player" parent="." instance=ExtResource("2_urhkv")]
 position = Vector2(-13, -936)
-speed = 1700.0
-acceleration = 100.0
-deceleration = 300.0
-air_acceleration = 50.0
-air_deceleration = 10.0
+acceleration = 60.0
+deceleration = 100.0
 jump_height = 600.0
 jump_time_to_peak = 0.5
 jump_time_to_descent = 0.4

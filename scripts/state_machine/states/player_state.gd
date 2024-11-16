@@ -13,21 +13,23 @@ func _ready() -> void:
 	assert(player != null, "The PlayerState state type must be used only in the player scene. 
 			It needs the owner to be a Player node.")
 
-func jump_buffering(delta) -> void:
-	if player.is_on_floor():
-		print("Jumped on the floor")
-		finished.emit(JUMPING)
-	elif not player.is_on_floor():
-		print("Starting Jump Buffering")
-		player.jump_buffered = true
-		player.buffer_timer = player.buffer_time
+func get_gravity() -> float:
+	return player.jump_gravity if player.velocity.y < 0.0 else player.fall_gravity
+	
+func movement(direction) -> void:
+	if direction == 1:
+		player.velocity.x = min(player.velocity.x + player.acceleration, player.speed)
+	elif direction == -1:
+		player.velocity.x = max(player.velocity.x - player.deceleration, -player.speed)
+	else:
+		player.velocity.x = lerp(player.velocity.x, 0.0, 0.2)
 		
-	if player.jump_buffered:
-		player.buffer_timer -= delta
-		if player.buffer_timer <= 0.0:
-			player.jump_buffered = false 
-			
-	if player.jump_buffered and player.is_on_floor():
-		print("Jump buffered")
-		finished.emit(JUMPING)
-		player.jump_buffered = false
+	player.velocity.x = clamp(player.velocity.x, -player.speed, player.speed)
+
+func air_movement(direction) -> void:
+	if direction == 1:
+		player.velocity.x += player.air_acceleration
+	elif direction == -1:
+		player.velocity.x -= player.air_deceleration
+		
+	player.velocity.x = clamp(player.velocity.x, -player.speed, player.speed)
