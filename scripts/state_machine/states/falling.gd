@@ -1,6 +1,8 @@
 extends PlayerState
 
 func enter(previous_state_path: String, data := {}) -> void:
+	if player.jump_available:
+		get_tree().create_timer(player.coyote_time).timeout.connect(coyote_timeout)
 	player.find_child("Label").text = "Falling"
 
 func physics_update(delta: float) -> void:
@@ -19,7 +21,9 @@ func physics_update(delta: float) -> void:
 	player.move_and_slide()
 
 	if player.is_on_floor():
-		if is_equal_approx(player.velocity.x, 0.0):
+		if abs(player.velocity.x) < 100:
 			finished.emit(IDLE)
 		else:
 			finished.emit(RUNNING)
+	elif Input.is_action_pressed("move_up") and player.jump_available:
+		finished.emit(JUMPING)

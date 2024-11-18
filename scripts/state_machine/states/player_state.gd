@@ -28,8 +28,11 @@ func movement(direction) -> void:
 
 func air_movement(direction) -> void:
 	if direction == 1:
-		player.velocity.x += player.air_acceleration
+		player.velocity.x = min(player.velocity.x + player.air_acceleration, player.speed)
 	elif direction == -1:
-		player.velocity.x -= player.air_deceleration
+		player.velocity.x = max(player.velocity.x - player.air_deceleration, -player.speed)
 		
 	player.velocity.x = clamp(player.velocity.x, -player.speed, player.speed)
+	
+func coyote_timeout():
+	player.jump_available = false

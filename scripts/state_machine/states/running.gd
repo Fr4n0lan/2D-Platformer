@@ -2,6 +2,7 @@ extends PlayerState
 
 func enter(previous_state_path: String, data := {}) -> void:
 	player.find_child("Label").text = "Running"
+	player.jump_available = true
 
 func physics_update(delta: float) -> void:
 	var input_direction_x := Input.get_axis("move_left", "move_right")
@@ -19,7 +20,7 @@ func physics_update(delta: float) -> void:
 
 	if not player.is_on_floor():
 		finished.emit(FALLING)
-	elif Input.is_action_just_pressed("move_up"):
+	elif Input.is_action_just_pressed("move_up") and player.jump_available:
 		finished.emit(JUMPING)
-	elif is_equal_approx(player.velocity.x, 0.0):
+	elif abs(player.velocity.x) < 100:
 		finished.emit(IDLE)

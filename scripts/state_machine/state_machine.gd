@@ -11,7 +11,6 @@ signal state_changed()
 	return initial_state if initial_state != null else get_child(0)
 ).call()
 
-
 func _ready() -> void:
 	# Connect to every state's finished signal to transition to the next state.
 	for state_node: State in find_children("*", "State"):
@@ -22,18 +21,14 @@ func _ready() -> void:
 	await owner.ready
 	state.enter("")
 
-
 func _unhandled_input(event: InputEvent) -> void:
 	state.handle_input(event)
-
 
 func _process(delta: float) -> void:
 	state.update(delta)
 
-
 func _physics_process(delta: float) -> void:
 	state.physics_update(delta)
-
 
 func _transition_to_next_state(target_state_path: String, data: Dictionary = {}) -> void:
 	if not has_node(target_state_path):

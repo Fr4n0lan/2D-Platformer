@@ -1,6 +1,8 @@
 extends PlayerState
 
 func enter(previous_state_path: String, data := {}) -> void:
+	player.jump_available = false
+	player.jump_time_to_descent = 0.4
 	player.velocity.y = player.jump_velocity
 	player.find_child("Label").text = "Jumping"
 		
@@ -17,7 +19,11 @@ func physics_update(delta: float) -> void:
 	
 	player.find_child("AnimatedSprite2D").play("jump")
 
+	if Input.is_action_just_released("move_up") and player.velocity.y < 0:
+		player.velocity.y = 0
+		player.jump_time_to_descent = 0.2
+
 	player.move_and_slide()
 
-	if player.velocity.y >= 0 and player.jump_buffered == false:
+	if player.velocity.y >= 0:
 		finished.emit(FALLING)
