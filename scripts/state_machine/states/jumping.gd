@@ -8,7 +8,7 @@ func enter(previous_state_path: String, data := {}) -> void:
 		
 func physics_update(delta: float) -> void:
 	var input_direction_x := Input.get_axis("move_left", "move_right")
-	movement(input_direction_x)
+	movement(player.air_acceleration, player.air_deceleration, input_direction_x, delta)
 
 	player.velocity.y += get_gravity() * delta
 	
@@ -21,7 +21,7 @@ func physics_update(delta: float) -> void:
 
 	if Input.is_action_just_released("move_up") and player.velocity.y < 0:
 		player.velocity.y = 0
-		player.jump_time_to_descent = 0.2
+		#player.jump_time_to_descent = 0.1
 
 	player.move_and_slide()
 

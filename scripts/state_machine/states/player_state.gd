@@ -16,23 +16,16 @@ func _ready() -> void:
 func get_gravity() -> float:
 	return player.jump_gravity if player.velocity.y < 0.0 else player.fall_gravity
 	
-func movement(direction) -> void:
+func movement(acceleration, deceleration, direction, delta) -> void:
 	if direction == 1:
-		player.velocity.x = min(player.velocity.x + player.acceleration, player.speed)
+		player.velocity.x = min(player.velocity.x + acceleration * delta, player.speed)
 	elif direction == -1:
-		player.velocity.x = max(player.velocity.x - player.deceleration, -player.speed)
+		player.velocity.x = max(player.velocity.x - acceleration * delta, -player.speed)
 	else:
-		player.velocity.x = lerp(player.velocity.x, 0.0, 0.2)
-		
-	player.velocity.x = clamp(player.velocity.x, -player.speed, player.speed)
-
-func air_movement(direction) -> void:
-	if direction == 1:
-		player.velocity.x = min(player.velocity.x + player.air_acceleration, player.speed)
-	elif direction == -1:
-		player.velocity.x = max(player.velocity.x - player.air_deceleration, -player.speed)
-		
-	player.velocity.x = clamp(player.velocity.x, -player.speed, player.speed)
+		if player.velocity.x > 0.0:
+			player.velocity.x = max(player.velocity.x - deceleration * delta, 0.0)
+		elif player.velocity.x < 0.0:
+			player.velocity.x = min(player.velocity.x + deceleration * delta, 0.0)
 	
 func coyote_timeout():
 	player.jump_available = false

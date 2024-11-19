@@ -6,7 +6,7 @@ func enter(previous_state_path: String, data := {}) -> void:
 
 func physics_update(delta: float) -> void:
 	var input_direction_x := Input.get_axis("move_left", "move_right")
-	movement(input_direction_x)
+	movement(player.acceleration, player.deceleration, input_direction_x, delta)
 	player.velocity.y = player.snapping_force
 	
 	if input_direction_x == 1:
