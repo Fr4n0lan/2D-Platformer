@@ -4,6 +4,7 @@ const IDLE = "Idle"
 const RUNNING = "Running"
 const JUMPING = "Jumping"
 const FALLING = "Falling"
+const DASHING = "Dashing"
 
 var player: Player
 
@@ -29,3 +30,6 @@ func movement(acceleration, deceleration, direction, delta) -> void:
 	
 func coyote_timeout():
 	player.jump_available = false
+
+func dash_timeout():
+	player.dash_available = true

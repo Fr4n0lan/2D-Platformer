@@ -6,7 +6,8 @@ func enter(previous_state_path: String, data := {}) -> void:
 
 func physics_update(delta: float) -> void:
 	var input_direction_x := Input.get_axis("move_left", "move_right")
-	movement(player.acceleration, player.deceleration, input_direction_x, delta)
+	#movement(player.acceleration, player.deceleration, input_direction_x, delta)
+	player.velocity.x = delta * player.speed * input_direction_x
 	player.velocity.y = player.snapping_force
 	
 	if input_direction_x == 1:
@@ -24,3 +25,5 @@ func physics_update(delta: float) -> void:
 		finished.emit(JUMPING)
 	elif abs(player.velocity.x) < 100:
 		finished.emit(IDLE)
+	elif Input.is_action_just_pressed("dash") and player.dash_available:
+		finished.emit(DASHING)

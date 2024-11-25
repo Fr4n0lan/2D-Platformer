@@ -14,5 +14,7 @@ func physics_update(delta: float) -> void:
 		finished.emit(FALLING)
 	elif Input.is_action_just_pressed("move_up") and player.jump_available:
 		finished.emit(JUMPING)
+	elif Input.is_action_just_pressed("dash") and player.dash_available:
+		finished.emit(DASHING)
 	elif Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
 		finished.emit(RUNNING)

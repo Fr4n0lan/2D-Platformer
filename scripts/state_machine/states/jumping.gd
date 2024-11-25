@@ -8,8 +8,8 @@ func enter(previous_state_path: String, data := {}) -> void:
 		
 func physics_update(delta: float) -> void:
 	var input_direction_x := Input.get_axis("move_left", "move_right")
-	movement(player.air_acceleration, player.air_deceleration, input_direction_x, delta)
-
+	#movement(player.air_acceleration, player.air_deceleration, input_direction_x, delta)
+	player.velocity.x = delta * player.speed * input_direction_x
 	player.velocity.y += get_gravity() * delta
 	
 	if input_direction_x == 1:
@@ -21,9 +21,11 @@ func physics_update(delta: float) -> void:
 
 	if Input.is_action_just_released("move_up") and player.velocity.y < 0:
 		player.velocity.y = 0
-		#player.jump_time_to_descent = 0.1
+		player.jump_time_to_descent = 0.5
 
 	player.move_and_slide()
 
 	if player.velocity.y >= 0:
 		finished.emit(FALLING)
+	elif Input.is_action_just_pressed("dash") and player.dash_available:
+		finished.emit(DASHING)
