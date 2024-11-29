@@ -9,10 +9,11 @@ class_name Player extends CharacterBody2D
 @export var air_deceleration := 6000
 
 #Dash Variables
-@export var dash_force := 6000
+@export var dash_force := 8000
 var dash_available := true
+var dash_finished := true
 @export var dash_cooldown := 0.6
-@export var dash_time := 0.6
+@export var dash_time := 0.15
 
 #Jump Variables
 @export var jump_height := 900

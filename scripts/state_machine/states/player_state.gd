@@ -32,4 +32,7 @@ func coyote_timeout():
 	player.jump_available = false
 
 func dash_timeout():
+	player.dash_finished = true
+
+func dash_cooldown_timeout():
 	player.dash_available = true
