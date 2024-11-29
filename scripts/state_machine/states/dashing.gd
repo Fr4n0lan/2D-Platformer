@@ -7,7 +7,10 @@ func enter(previous_state_path: String, data := {}) -> void:
 	player.dash_available = false
 	player.dash_finished = false
 	player.get_tree().create_timer(player.dash_time).timeout.connect(dash_timeout)
-	input_direction_x = Input.get_axis("move_left", "move_right")
+	if player.get_node("AnimatedSprite2D").flip_h:
+		input_direction_x = -1
+	else:
+		input_direction_x = 1
 	player.find_child("Label").text = "Dashing"
 	player.find_child("AnimatedSprite2D").play("dash")
 
@@ -19,9 +22,7 @@ func physics_update(delta: float) -> void:
 	player.move_and_slide()
 	
 	if player.is_on_floor():
-		if is_equal_approx(player.velocity.x, 0):
-			finished.emit(IDLE)
-		elif !player.dash_available:
+		if player.dash_finished:
 			finished.emit(RUNNING)
 	elif player.dash_finished:
 		finished.emit(FALLING)

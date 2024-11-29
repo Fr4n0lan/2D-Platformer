@@ -13,12 +13,16 @@ class_name Player extends CharacterBody2D
 var dash_available := true
 var dash_finished := true
 @export var dash_cooldown := 0.6
-@export var dash_time := 0.15
+@export var dash_time := 0.12
 
 #Jump Variables
 @export var jump_height := 900
 @export var jump_time_to_peak := 0.6
 @export var jump_time_to_descent := 0.4
+
+#Jump Buffering Variables
+var jump_buffer := false
+@export var jump_buffer_time := 0.1
 
 #Jump Calculation Variables
 @onready var jump_velocity: float = ((2.0 * jump_height) / jump_time_to_peak) * -1.0
@@ -27,4 +31,4 @@ var dash_finished := true
 
 #Coyote Time Variables
 @export var coyote_time := 0.2
-@onready var jump_available := true
+var jump_available := true

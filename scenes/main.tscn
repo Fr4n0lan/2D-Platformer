@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwprjc07bekh"]
+[gd_scene load_steps=6 format=3 uid="uid://bwprjc07bekh"]
 
 [ext_resource type="Texture2D" uid="uid://dnx08hu6nn3iv" path="res://assets/Mossy Assets/Mossy Tileset/Mossy - TileSet.png" id="1_cjp7p"]
 [ext_resource type="PackedScene" uid="uid://cvjg7ic5s0a1i" path="res://scenes/player.tscn" id="2_urhkv"]
@@ -110,6 +110,13 @@ tile_size = Vector2i(512, 512)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_ml2to")
 
+[sub_resource type="Environment" id="Environment_80ekh"]
+background_mode = 3
+glow_intensity = 1.36
+glow_strength = 0.68
+adjustment_enabled = true
+adjustment_saturation = 1.5
+
 [node name="Main" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -126,3 +133,6 @@ scale = Vector2(19.56, 1)
 zoom = Vector2(0.25, 0.25)
 position_smoothing_enabled = true
 position_smoothing_speed = 7.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_80ekh")

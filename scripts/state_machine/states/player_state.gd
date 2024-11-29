@@ -36,3 +36,6 @@ func dash_timeout():
 
 func dash_cooldown_timeout():
 	player.dash_available = true
+
+func jump_buffer_timeout():
+	player.jump_buffer = false
