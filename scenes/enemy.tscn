@@ -1,5 +1,6 @@
-[gd_scene load_steps=62 format=3 uid="uid://b224yaiguv4lr"]
+[gd_scene load_steps=68 format=3 uid="uid://b224yaiguv4lr"]
 
+[ext_resource type="Script" path="res://scripts/enemy/enemy.gd" id="1_lw8iw"]
 [ext_resource type="Texture2D" uid="uid://22gidoepqqvk" path="res://assets/Slimes/SlimeGreen/SlimeBasic_00000.png" id="1_th4xy"]
 [ext_resource type="Texture2D" uid="uid://bap8x6nroufn4" path="res://assets/Slimes/SlimeGreen/SlimeBasic_00001.png" id="2_5lkbw"]
 [ext_resource type="Texture2D" uid="uid://bslgfb7ebo3fq" path="res://assets/Slimes/SlimeGreen/SlimeBasic_00002.png" id="3_bi2rk"]
@@ -60,6 +61,9 @@
 [ext_resource type="Texture2D" uid="uid://pasol8ks0vk1" path="res://assets/Slimes/SlimeOrange/SlimeOrange_00027.png" id="58_5ulgg"]
 [ext_resource type="Texture2D" uid="uid://buuhvaj4jja75" path="res://assets/Slimes/SlimeOrange/SlimeOrange_00028.png" id="59_p5fw2"]
 [ext_resource type="Texture2D" uid="uid://cfvim7jtsjl0y" path="res://assets/Slimes/SlimeOrange/SlimeOrange_00029.png" id="60_i0ku3"]
+[ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="62_3ilij"]
+[ext_resource type="Script" path="res://scripts/state_machine/enemy_states/enemy_idle.gd" id="63_kvgly"]
+[ext_resource type="Script" path="res://scripts/state_machine/enemy_states/enemy_falling.gd" id="64_5eh7r"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6qn0p"]
 animations = [{
@@ -254,9 +258,47 @@ animations = [{
 "speed": 20.0
 }]
 
-[node name="enemy" type="Node2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6rnht"]
+radius = 56.0
+height = 228.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t8ajw"]
+radius = 67.0
+height = 226.0
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_lw8iw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6qn0p")
-animation = &"idle_orange"
-frame_progress = 0.638652
+animation = &"idle_green"
+frame_progress = 0.963365
+
+[node name="CollisionShape2D_green" type="CollisionShape2D" parent="."]
+position = Vector2(1, 5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_6rnht")
+
+[node name="CollisionShape2D_orange" type="CollisionShape2D" parent="."]
+position = Vector2(4, 19)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_t8ajw")
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+offset_left = -113.0
+offset_top = -269.0
+offset_right = -73.0
+offset_bottom = -246.0
+scale = Vector2(6.30858, 5.62134)
+text = "Idle"
+horizontal_alignment = 1
+
+[node name="State Machine" type="Node" parent="."]
+script = ExtResource("62_3ilij")
+
+[node name="Idle" type="Node" parent="State Machine"]
+script = ExtResource("63_kvgly")
+
+[node name="Falling" type="Node" parent="State Machine"]
+script = ExtResource("64_5eh7r")

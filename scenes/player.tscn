@@ -98,11 +98,11 @@
 [ext_resource type="Texture2D" uid="uid://dxppshdu1bcyr" path="res://assets/BlueWizard Animations/BlueWizard/2BlueWizardJump/Dash3/Dash3_00014.png" id="48_lp5oq"]
 [ext_resource type="Texture2D" uid="uid://3m82m0xsmuaa" path="res://assets/BlueWizard Animations/BlueWizard/2BlueWizardJump/Dash3/Dash3_00015.png" id="49_5ll8r"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="50_3v6j5"]
-[ext_resource type="Script" path="res://scripts/state_machine/states/idle.gd" id="51_j51fy"]
-[ext_resource type="Script" path="res://scripts/state_machine/states/jumping.gd" id="52_1gew7"]
-[ext_resource type="Script" path="res://scripts/state_machine/states/running.gd" id="53_xw2vb"]
-[ext_resource type="Script" path="res://scripts/state_machine/states/falling.gd" id="54_hl7oo"]
-[ext_resource type="Script" path="res://scripts/state_machine/states/dashing.gd" id="103_popi6"]
+[ext_resource type="Script" path="res://scripts/state_machine/player_states/idle.gd" id="51_j51fy"]
+[ext_resource type="Script" path="res://scripts/state_machine/player_states/jumping.gd" id="52_1gew7"]
+[ext_resource type="Script" path="res://scripts/state_machine/player_states/running.gd" id="53_xw2vb"]
+[ext_resource type="Script" path="res://scripts/state_machine/player_states/falling.gd" id="54_hl7oo"]
+[ext_resource type="Script" path="res://scripts/state_machine/player_states/dashing.gd" id="103_popi6"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bsw86"]
 animations = [{
