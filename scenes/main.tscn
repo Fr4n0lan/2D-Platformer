@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwprjc07bekh"]
+[gd_scene load_steps=8 format=3 uid="uid://bwprjc07bekh"]
 
 [ext_resource type="Texture2D" uid="uid://dnx08hu6nn3iv" path="res://assets/Mossy Assets/Mossy Tileset/Mossy - TileSet.png" id="1_cjp7p"]
 [ext_resource type="PackedScene" uid="uid://cvjg7ic5s0a1i" path="res://scenes/player.tscn" id="2_urhkv"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="3_rph13"]
+[ext_resource type="PackedScene" uid="uid://bae36x3hrf8r3" path="res://scenes/trail.tscn" id="4_65qhs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ml2to"]
 texture = ExtResource("1_cjp7p")
@@ -133,6 +135,9 @@ scale = Vector2(19.56, 1)
 zoom = Vector2(0.25, 0.25)
 position_smoothing_enabled = true
 position_smoothing_speed = 7.0
+script = ExtResource("3_rph13")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_80ekh")
+
+[node name="Trail" parent="." instance=ExtResource("4_65qhs")]

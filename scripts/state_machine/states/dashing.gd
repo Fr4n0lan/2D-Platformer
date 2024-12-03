@@ -2,15 +2,23 @@ extends PlayerState
 
 var input_direction_x
 
+signal dashed
+
 func enter(previous_state_path: String, data := {}) -> void:
 	player.velocity.y = 0
+	
 	player.dash_available = false
 	player.dash_finished = false
+	
 	player.get_tree().create_timer(player.dash_time).timeout.connect(dash_timeout)
+	
 	if player.get_node("AnimatedSprite2D").flip_h:
 		input_direction_x = -1
 	else:
 		input_direction_x = 1
+	
+	dashed.emit()
+	
 	player.find_child("Label").text = "Dashing"
 	player.find_child("AnimatedSprite2D").play("dash")
 
